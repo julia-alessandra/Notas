@@ -40,7 +40,7 @@ Antes de começar, você precisa instalar alguns programas no seu computador:
 
 O Spring Boot precisa do Java para funcionar.
 
-1. Baixe o Java Development Kit (JDK) pelo link: [https://adoptium.net/](https://adoptium.net/)
+1. Baixe o Java Development Kit (JDK) pelo link: [[https://www.oracle.com](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 2. Instale seguindo as instruções do site.
 3. Para verificar se a instalação foi concluída, abra o **Prompt de Comando (Windows)** ou **Terminal (Mac/Linux)** e digite:
    ```sh
@@ -67,14 +67,14 @@ O projeto utiliza um banco de dados relacional para armazenar as informações d
 1. **Usando MySQL:**
 
    - Baixe e instale o MySQL pelo link: [https://dev.mysql.com/downloads/](https://dev.mysql.com/downloads/)
-   - Crie um banco de dados chamado `escola`:
+   - Crie um banco de dados chamado `NotasBD`:
      ```sh
-     CREATE DATABASE escola;
+     CREATE DATABASE NotasBD;
      ```
    - No arquivo `application.properties` (localizado na pasta `src/main/resources`), configure a conexão:
      ```properties
-     spring.datasource.url=jdbc:mysql://localhost:3306/escola
-     spring.datasource.username=seu_usuario
+     spring.datasource.url=jdbc:mysql://localhost:5432/NotasBD
+     spring.datasource.username=postgres
      spring.datasource.password=sua_senha
      ```
    - Certifique-se de que o MySQL está rodando antes de iniciar o projeto.
@@ -95,7 +95,7 @@ Você pode baixar o código de duas maneiras:
    - Depois de baixar, extraia os arquivos para uma pasta no seu computador.
 2. **Usar o Git (Opcional)**: Se tiver o Git instalado, digite no terminal:
    ```sh
-   git clone https://github.com/seu-usuario/seu-projeto.git
+   git clone https://github.com/julia-alessandra/Notas.git
    ```
 
 ### 3. Abrir o Projeto
