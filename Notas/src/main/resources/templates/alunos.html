@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <link th:href="@{/style.css}" rel="stylesheet">
+
+<head>
+    <title>Cadastro de Alunos</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        function confirmarExclusão(id) {
+            if (confirm("Tem certeza que deseja excluir este aluno? Essa ação não pode ser desfeita.")) {
+                window.location.href = "/deletarAluno/" + id;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Inserir Notas e Frequência dos Alunos</h1>
+    
+    <form th:action="@{/salvarAluno}" method="post">
+        Nome: <input type="text" name="nome"><br>
+        
+        <h2>Notas:</h2>
+        <div class="notas-container">
+            <input type="number" step="0.1" name="notas" min="0" max="10" placeholder="Matéria 1">
+            <input type="number" step="0.1" name="notas" min="0" max="10" placeholder="Matéria 2">
+            <input type="number" step="0.1" name="notas" min="0" max="10" placeholder="Matéria 3">
+            <input type="number" step="0.1" name="notas" min="0" max="10" placeholder="Matéria 4">
+            <input type="number" step="0.1" name="notas" min="0" max="10" placeholder="Matéria 5">
+        </div>
+        
+        <h2>Frequência:</h2>
+        <input type="number" step="0.1" name="frequencia" min="0" max="100"><br>
+        
+        <input type="submit" value="Salvar Aluno">
+    </form>
+    
+    <h2>Lista de Alunos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matéria 1</th>
+                <th>Matéria 2</th>
+                <th>Matéria 3</th>
+                <th>Matéria 4</th>
+                <th>Matéria 5</th>
+                <th>Média</th>
+                <th>Frequência</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${alunos}">
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.getNotaDisciplina('Matéria 1')}"></td>
+                <td th:text="${aluno.getNotaDisciplina('Matéria 2')}"></td>
+                <td th:text="${aluno.getNotaDisciplina('Matéria 3')}"></td>
+                <td th:text="${aluno.getNotaDisciplina('Matéria 4')}"></td>
+                <td th:text="${aluno.getNotaDisciplina('Matéria 5')}"></td>
+                <td th:text="${aluno.getMediaNotas()}"></td>
+                <td th:text="${aluno.frequencia} + '%'"></td>
+                <td>
+                    <a href="#" th:attr="onclick='confirmarExclusão(' + ${aluno.id} + ')'" style="color: red;">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Média Geral da Turma em Cada Matéria</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Matéria 1</th>
+                <th>Matéria 2</th>
+                <th>Matéria 3</th>
+                <th>Matéria 4</th>
+                <th>Matéria 5</th>
+                <th>Geral</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${mediaGeral['Matéria 1']}"></td>
+                <td th:text="${mediaGeral['Matéria 2']}"></td>
+                <td th:text="${mediaGeral['Matéria 3']}"></td>
+                <td th:text="${mediaGeral['Matéria 4']}"></td>
+                <td th:text="${mediaGeral['Matéria 5']}"></td>
+                <td th:text="${mediaTurma}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Alunos com Média Acima da Média Geral</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Média</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${acimaMedia}">
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.getMediaNotas()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Alunos com Frequência Abaixo de 75%</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Frequência</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${abaixoFrequencia}">
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.frequencia} + '%'"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

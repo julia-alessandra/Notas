@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Relatório de Alunos</title>
+</head>
+<body>
+    <h1>Relatório de Desempenho dos Alunos</h1>
+    
+    <h2>Média da Turma: <span th:text="${mediaTurma}"></span></h2>
+    
+    <h2>Alunos com Atenção Especial</h2>
+    <ul>
+        <li th:each="aluno : ${alunos}">
+            <span th:if="${aluno.mediaNotas > mediaTurma}"> <span th:text="${aluno.nome}"></span> - Média: <span th:text="${aluno.mediaNotas}"></span></span>
+            <span th:if="${aluno.frequencia < 75}"> <span th:text="${aluno.nome}"></span> - Frequência Baixa: <span th:text="${aluno.frequencia}"></span>%</span>
+        </li>
+    </ul>
+</body>
+</html>
